@@ -613,7 +613,10 @@ class Heading(DomObj):
 				# TODO think if you want to fix this i.e. german 'ß'.upper()
 				# is converted to SS and that is by the rules... cf.
 				# https://bugs.python.org/issue4610
-				self._todo = v.upper()
+				# ron89: No capital 'ß' for German, so retain original form is
+				# 		 more proper, IMO. Hence appending this temporary fix.
+				self._todo = u''.join(
+						[letter.upper() if letter is not u'ß' else letter for letter in v])
 			self.set_dirty_heading()
 
 		def fdel(self):
